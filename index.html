@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+		textarea {
+      padding: 10px;
+		}
+    textarea:focus {
+      /*outline: none; */
+      /*border: 1px solid black;*/
+    }
+  </style>
+</head>
+<body>
+  <textarea id="ghostdreamz" style="width: 400px; height:400px;"></textarea>
+
+  <textarea id="replay" style="width: 400px; height: 400px;" readonly></textarea>
+  <br>
+
+  <button id="boom">replay</button>
+  <button id="reset-me">reset</button>
+  <button id="save-me">save<a style="display:none;"></a></button>
+
+  <script src="src/ghostkeys.js"></script>
+  <script>
+    var request = new XMLHttpRequest();
+    request.open('GET', 'blurbz/intro.json', true);
+    
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var data = JSON.parse(request.responseText);
+        // TODO note we just overwrite the global log
+        log = data
+        runReplay(() => {ta.value = ta2.value; toggleTa();})
+        ta.value = ta2.value
+      } else {
+        // We reached our target server, but it returned an error
+      }
+    };
+    request.send();
+
+  </script>
+</body>
+</html>
